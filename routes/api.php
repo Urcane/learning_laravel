@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::prefix('todo_api')
+    ->namespace('Api')
     ->name('todo_api.')
     ->group(function () {
         Route::get('/', 'ApiController@getAllToDoList')->name('getAll');
