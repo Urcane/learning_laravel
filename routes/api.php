@@ -24,9 +24,9 @@ Route::prefix('todo_api')
     ->namespace('Api')
     ->name('todo_api.')
     ->group(function () {
-        Route::get('/', 'ApiController@getAllToDoList')->name('getAll');
-        Route::get('{todo:tittle}', 'ApiController@getToDoList')->name('getOne');
-        Route::post('add', 'ApiController@createToDoList')->name('add');
-        Route::put('update/{id}', 'ApiController@updateToDoList')->name('update');
-        Route::delete('delete/{id}', 'ApiController@deleteToDoList')->name('delete');
+        Route::get('/', 'ToDoApiController@getAllToDoList')->name('getAll');
+        Route::get('{todo:tittle}', 'ToDoApiController@getToDoList')->name('getOne');
+        Route::post('add', 'ToDoApiController@createToDoList')->name('add');
+        Route::put('update/{id}', 'ToDoApiController@updateToDoList')->name('update');
+        Route::delete('delete/{id}', 'ToDoApiController@deleteToDoList')->name('delete');
     });

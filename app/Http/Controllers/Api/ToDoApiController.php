@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\ToDoTables;
 use Illuminate\Http\Request;
 
-class ApiController extends Controller
+class ToDoApiController extends Controller
 {
     public function getAllToDoList()
     {
