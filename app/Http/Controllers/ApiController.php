@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\to_do_table;
+use App\ToDoTables;
 use Illuminate\Http\Request;
 
 class ApiController extends Controller
 {
     public function getAllToDoList()
     {
-        $toDoList = to_do_table::get();
+        $toDoList = ToDoTables::get();
 
         return response($toDoList, 200);
     }
 
-    public function getToDoList(to_do_table $todo)
+    public function getToDoList(ToDoTables $todo)
     {
         return $todo;
 
-        // if(to_do_table::where('id', $id)->exists()){
-        //     $toDoList = to_do_table::find($id);
+        // if(ToDoTables::where('id', $id)->exists()){
+        //     $toDoList = ToDoTables::find($id);
             
         //     return \response($toDoList, 200);
         // } else {
@@ -31,7 +31,7 @@ class ApiController extends Controller
 
     public function createToDoList(Request $request)
     {
-            $toDoList = new to_do_table;
+            $toDoList = new ToDoTables;
             
             $toDoList -> tittle = $request -> tittle;
             $toDoList -> description = $request -> description;
@@ -46,8 +46,8 @@ class ApiController extends Controller
 
     public function updateToDoList(Request $request, $id)
     {
-        if (to_do_table::where('id', $id) -> exists()) {
-            $toDoList = to_do_table::find($id);
+        if (ToDoTables::where('id', $id) -> exists()) {
+            $toDoList = ToDoTables::find($id);
             
             $toDoList -> tittle = is_null($request-> tittle) ?  $toDoList -> tittle :  $request -> tittle;
             $toDoList -> description = is_null($request-> description) ?  $toDoList -> description : $request -> description;
@@ -61,11 +61,11 @@ class ApiController extends Controller
             ], 200);
         }
     }
-    
+
     public function deleteToDoList($id)
     {
-        if(to_do_table::where('id', $id)->exists()){
-            to_do_table::destroy($id);
+        if(ToDoTables::where('id', $id)->exists()){
+            ToDoTables::destroy($id);
             
             return \response() -> json([
                 "message" => "To Do List Deleted"
