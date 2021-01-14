@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,8 +20,11 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('todo_api', 'ApiController@getAllToDoList');
-Route::get('todo_api/{todo:tittle}', 'ApiController@getToDoList');
-Route::post('todo_api/add', 'ApiController@createToDoList');
-Route::put('todo_api/update/{id}', 'ApiController@updateToDoList');
-Route::delete('todo_api/delete/{id}', 'ApiController@deleteToDoList');
+Route::prefix('todo_api')
+    ->group(function () {
+        Route::get('/', 'ApiController@getAllToDoList');
+        Route::get('{todo:tittle}', 'ApiController@getToDoList');
+        Route::post('add', 'ApiController@createToDoList');
+        Route::put('update/{id}', 'ApiController@updateToDoList');
+        Route::delete('delete/{id}', 'ApiController@deleteToDoList');
+    });
