@@ -10,14 +10,46 @@ use Illuminate\Http\Request;
  */
 trait ToDoApiTraits
 {
-    public function getAllToDoList()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        $toDoList = ToDoTables::get();
+        $toDoList = ToDoTables::all();
 
         return response($toDoList, 200);
     }
 
-    public function getToDoList(ToDoTables $todo)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $toDoList = new ToDoTables;
+            
+        $toDoList -> tittle = $request -> tittle;
+        $toDoList -> description = $request -> description;
+        $toDoList -> start_date = date('Y-m-d', strtotime($request -> start_date));
+        $toDoList -> end_date = date('Y-m-d', strtotime($request -> end_date));
+        $toDoList -> save();
+
+        return \response() -> json([
+                "message" => "To Do List created"
+            ], 201);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(ToDoTables $todo)
     {
         return $todo;
 
@@ -32,22 +64,14 @@ trait ToDoApiTraits
         // };
     }
 
-    public function createToDoList(Request $request)
-    {
-            $toDoList = new ToDoTables;
-            
-            $toDoList -> tittle = $request -> tittle;
-            $toDoList -> description = $request -> description;
-            $toDoList -> start_date = date('Y-m-d', strtotime($request -> start_date));
-            $toDoList -> end_date = date('Y-m-d', strtotime($request -> end_date));
-            $toDoList -> save();
-
-            return \response() -> json([
-                "message" => "To Do List created"   
-            ], 201);
-    }
-
-    public function updateToDoList(Request $request, $id)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
     {
         if (ToDoTables::where('id', $id) -> exists()) {
             $toDoList = ToDoTables::find($id);
@@ -65,9 +89,15 @@ trait ToDoApiTraits
         }
     }
 
-    public function deleteToDoList($id)
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
     {
-        if(ToDoTables::where('id', $id)->exists()){
+        if (ToDoTables::where('id', $id)->exists()) {
             ToDoTables::destroy($id);
             
             return \response() -> json([

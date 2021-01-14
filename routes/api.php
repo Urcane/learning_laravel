@@ -4,6 +4,7 @@ use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\Framework\MockObject\Rule\Parameters;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,13 +21,14 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::prefix('todo_api')
-    ->namespace('Api')
-    ->name('todo_api.')
+Route::namespace('Api')
     ->group(function () {
-        Route::get('/', 'ToDoApiController@getAllToDoList')->name('getAll');
-        Route::get('{todo:tittle}', 'ToDoApiController@getToDoList')->name('getOne');
-        Route::post('add', 'ToDoApiController@createToDoList')->name('add');
-        Route::put('update/{id}', 'ToDoApiController@updateToDoList')->name('update');
-        Route::delete('delete/{id}', 'ToDoApiController@deleteToDoList')->name('delete');
+        Route::apiResource('todo', 'ToDoApiController', [
+            'names' => [
+                'store' => 'todo.add',
+                'index' => 'todo.getAll',
+                'show' => 'todo.get',
+                'destroy' => 'todo.delete'
+            ]
+        ]);
     });
