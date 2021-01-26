@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticationController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
@@ -19,24 +20,24 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+Route::post('/', [AuthenticationController::class, 'login'])
+    ->name('login');
+Route::get('/', [AuthenticationController::class, 'index'])
+    ->name('login');
+
 Route::middleware(['auth'])->group(function() {
-    Route::get('/', function () {
-        return view('auth.login');
-    });
-
-    Route::get('login', function () {
-        return view('auth.login');
-    });
-
     Route::get('onprogress', function () {
         return view('pages.onprogress');
     });
     
     Route::get('finish', function () {
-        return view('pages.onprogress');
+        return view('pages.finish');
     });
 
     Route::get('delayed', function () {
-        return view('pages.onprogress');
+        return view('pages.delayed');
     });
+
+    Route::get('logout', [AuthenticationController::class, 'logout'])
+        ->name('logout');
 });

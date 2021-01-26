@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<meta name="author" content="David Grzyb">
     <meta name="description" content="">
+    
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <title>To Do Apps</title>
 
@@ -34,7 +35,8 @@
         </section>
 
         <section class="mt-10">
-            <form class="flex flex-col" method="POST" action="">
+            <form class="flex flex-col" method="POST" action="{{ route('login')}}">
+            @csrf
                 <div class="mb-6 pt-3 rounded bg-gray-200">
                     <label class="block text-gray-700 text-sm font-bold mb-2 ml-3" for="email">Email</label>
                     <input name="email" type="text" id="email" class="bg-gray-200 rounded w-full text-gray-700 focus:outline-none border-b-4 border-gray-300 focus:border-purple-600 transition duration-500 px-3 pb-3">
