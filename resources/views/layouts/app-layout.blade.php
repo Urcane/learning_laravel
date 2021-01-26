@@ -26,5 +26,8 @@
             @include('layouts.navigation-layout')
         </div>
     </div>
+
+    <!-- Fontawesome -->
+    <script src="https://kit.fontawesome.com/345c70c9db.js" crossorigin="anonymous"></script>
 </body>
 </html>
